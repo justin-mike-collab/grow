@@ -1,0 +1,166 @@
+# docker-compose.yaml for {{info.name}} developers edition
+services:
+  ##################################
+  # Welcome Service
+  ##################################
+  welcome:
+    image: {{org.docker_host}}/{{org.docker_org}}/{{info.slug}}:latest
+    ports:
+      - "127.0.0.1:80:80"
+    profiles:
+      - all
+      - runbook
+      - mongodb
+      - sample
+      - sample_api
+
+  ##################################
+  # Custom Runbook API Service (Deployed Profile)
+  ##################################
+  runbook-api:
+    image: {{org.docker_host}}/{{org.docker_org}}/{{info.slug}}_runbook_api:latest
+    container_name: runbook_api
+    working_dir: /opt/stage0/runner
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 0}}:{{info.base_port + 0}}"
+    environment:
+      API_PORT: {{info.base_port + 0}}
+      ENABLE_LOGIN: "true"
+      LOGGING_LEVEL: "INFO"
+      JWT_SECRET: ${JWT_SECRET}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      SSH_KEY: ${SSH_KEY}
+      MOUNT_DIR: ${MOUNT_DIR}
+      UI_HEADER: "Mentor Hub Packaged Runbooks"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${MOUNT_DIR}:/execution 
+    profiles:
+      - all
+      - runbook
+
+  runbook-spa:
+    image: ghcr.io/agile-learning-institute/stage0_runbook_spa:latest
+    container_name: runbook_spa
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 1}}:80"
+    environment:
+      API_HOST: runbook-api
+      API_PORT: {{info.base_port + 0}}
+      IDP_LOGIN_URI: ${IDP_LOGIN_URI:-http://localhost:{{info.base_port + 1}}/login}
+    depends_on:
+      runbook-api:
+        condition: service_started
+    profiles:
+      - all
+      - runbook
+
+  ##################################
+  # Backing Services 
+  ##################################
+  # MongoDB backing service 
+  mongodb:
+    image: mongo:7.0.5
+    ports:
+      - "127.0.0.1:27017:27017"
+    extra_hosts:
+      - "mongodb:127.0.0.1"
+    healthcheck:
+      test: echo "db.runCommand('ping')" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      retries: 3
+    command: ["--bind_ip_all", "--port", "27017"]
+    profiles:
+      - all
+      - mongodb
+      - sample
+      - sample_api
+
+  ##################################
+  # Mongo Database Configuration Utilities
+  ##################################
+  mongodb_api:
+    image: {{org.docker_host}}/{{org.docker_org}}/{{info.slug}}_mongodb_api:latest
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 2}}:{{info.base_port + 2}}"
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://mongodb:27017/
+      MONGODB_REQUIRE_TLS: False
+      MONGO_DB_NAME: {{info.db_name}}
+      AUTO_PROCESS: True
+      LOAD_TEST_DATA: True
+      API_PORT: {{info.base_port + 2}}
+      SPA_PORT: {{info.base_port + 3}}
+      UI_HEADER: "{{info.name}} MongoDB Configurations"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    profiles:
+      - all
+      - mongodb
+      - sample
+      - sample_api
+
+  mongodb_spa:
+    image: ghcr.io/agile-learning-institute/mongodb_configurator_spa:latest
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 3}}:{{info.base_port + 3}}"
+    environment:
+      API_HOST: mongodb_api
+      API_PORT: {{info.base_port + 2}}
+      SPA_PORT: {{info.base_port + 3}}
+    depends_on:
+      mongodb_api:
+        condition: service_started
+    profiles:
+      - all
+      - mongodb
+      - sample
+      - sample_api
+
+  ##################################
+  # Sample Microservice 
+  ##################################
+  sample_api:
+    image: {{org.docker_host}}/{{org.docker_org}}/{{info.slug}}_sample_api:latest
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 6}}:{{info.base_port + 6}}"
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://mongodb:27017/
+      MONGODB_REQUIRE_TLS: False
+      MONGO_DB_NAME: {{info.db_name}}
+      ENABLE_LOGIN: "true"
+      LOGGING_LEVEL: "INFO"
+      JWT_SECRET: ${JWT_SECRET}
+      SAMPLE_API_PORT: {{info.base_port + 6}}
+      SAMPLE_SPA_PORT: {{info.base_port + 7}}
+    depends_on:
+      mongodb_api:
+        condition: service_started
+    profiles:
+      - all
+      - sample
+      - sample_api
+
+  sample_spa:
+    image: {{org.docker_host}}/{{org.docker_org}}/{{info.slug}}_sample_spa:latest
+    restart: no
+    ports:
+      - "127.0.0.1:{{info.base_port + 7}}:80"
+    environment:
+      API_HOST: sample_api
+      API_PORT: {{info.base_port + 6}}
+      SPA_PORT: {{info.base_port + 7}}
+    depends_on:
+      sample_api:
+        condition: service_started
+    profiles:
+      - all
+      - sample

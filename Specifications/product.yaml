@@ -1,0 +1,21 @@
+$schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/product.schema.yaml"
+$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/product.yaml"
+title: Product and Organization Specifications for {{info.name}}
+
+info:
+  name: {{info.name}}
+  description: {{info.description}}
+  slug: {{info.slug}}
+  developer_cli: {{info.developer_cli}}
+  db_name: {{info.db_name}}
+  base_port: {{info.base_port}}
+
+organization:
+  name: {{org.name}}
+  email: {{org.email}}
+  founded: {{org.founded}}
+  slug: {{org.slug}}
+  git_host: {{org.git_host}}
+  git_org: {{org.git_org}}
+  docker_host: {{org.docker_host}}
+  docker_org: {{org.docker_org}}

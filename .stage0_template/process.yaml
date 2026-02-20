@@ -1,0 +1,63 @@
+$schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/process.schema.yaml"
+$id: "https://github.com/agile-learning-institute/stage0_template_umbrella/blob/main/.stage0_template/process.yaml"
+title: Process file for a Umbrella Template
+
+environment:
+
+context:
+  - key: info
+    type: path
+    path: specifications.product.info
+  - key: org
+    type: path
+    path: specifications.product.organization
+
+requires:
+  - info.name
+  - info.description
+  - info.slug
+  - org.name
+  - org.founded
+  - org.git_host
+  - org.git_org
+  - org.docker_host
+  - org.docker_org
+
+templates:
+  - path: "./.github/workflows/docker-push.yml"
+    merge: true
+  - path: "./Specifications/architecture.yaml"
+    merge: true
+  - path: "./Specifications/catalog.yaml"
+    merge: true
+  - path: "./Specifications/journeys.yaml"
+    merge: true
+  - path: "./Specifications/product.yaml"
+    merge: true
+  - path: "./Specifications/roadmap.yaml"
+    merge: true
+  - path: "./Specifications/stakeholders.yaml"
+    merge: true
+  - path: "./DeveloperEdition/docker-compose.yaml"
+    merge: true
+  - path: "./DeveloperEdition/standards/sre_standards.md"
+    merge: true
+  - path: "./DeveloperEdition/de.template"
+    output: "./DeveloperEdition/{{info.developer_cli}}"
+    merge: true
+  - path: "./index.html"
+    merge: true
+  - path: "./Dockerfile"
+    merge: true
+  - path: "./LICENSE"
+    merge: true
+  - path: "./CONTRIBUTING.md"
+    merge: true
+  - path: "./README.md.template"
+    output: "./README.md"
+    merge: true
+  - path: "./Makefile.template"
+    output: "./Makefile"
+    merge: true
+
+  
