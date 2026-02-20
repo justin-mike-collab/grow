@@ -54,25 +54,76 @@ architecture:
           publish: npm
           type: spa
           port: 9095
-    - name: sample
+    - name: profile
       description: Sample Service Domain - use for each User Journey domain.
       data_domains:
         controls:
-          - Control 
+          - Profile 
+          - Organization
         creates:
-          - Create 
+          - Event
         consumes:
-          - Consume
+          - Identity
       repos:
-        - name: sample_api
-          description: Flask API with MongoDB Database
+        - name: profile_api
+          description: Profile API
           template: agile-learning-institute/stage0_template_flask_mongo
           publish: pipenv
           type: api
-          port: 9096
-        - name: sample_spa
-          description: Vue Vuetify SPA
+          port: 8389
+        - name: profile_spa
+          description: Profile SPA
           template: agile-learning-institute/stage0_template_vue_vuetify
           publish: npm
           type: spa
-          port: 9097
+          port: 8390
+    - name: mentor
+      description: Mentor User Journey Domain
+      data_domains:
+        controls:
+          - Resource
+          - Path
+          - Plan
+          - Encounter
+        creates:
+          - Event
+        consumes:
+          - Profile
+      repos:
+        - name: mentor_api
+          description: Mentor API
+          template: agile-learning-institute/stage0_template_flask_mongo
+          publish: pipenv
+          type: api
+          port: 8391
+        - name: mentor_spa
+          description: Mentor SPA
+          template: agile-learning-institute/stage0_template_vue_vuetify
+          publish: npm
+          type: spa
+          port: 8392
+    - name: member
+      description: Member User Journey Domain
+      data_domains:
+        controls:
+          - Curriculum
+          - Rating
+          - Review
+        creates:
+          - Event
+        consumes:
+          - Resource
+          - Path 
+      repos:
+        - name: member_api
+          description: Member API
+          template: agile-learning-institute/stage0_template_flask_mongo
+          publish: pipenv
+          type: api
+          port: 8393 
+        - name: member_spa
+          description: Member SPA
+          template: agile-learning-institute/stage0_template_vue_vuetify
+          publish: npm
+          type: spa
+          port: 8394                  

@@ -1,0 +1,158 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6.0
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    profiles:
+      - runbook
+      - runbook-api
+      - schema
+      - schema-api
+      - profile
+      - profile-api
+      - mentor
+      - mentor-api
+      - member
+      - member-api
+
+  runbook_api:
+    build:
+      context: ../Domains/runbook/runbook_api
+    image: runbook_api:latest
+    ports:
+      - "9090:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/grow_db
+    depends_on:
+      - mongo
+    profiles:
+      - runbook
+      - runbook-api
+
+  runbook_spa:
+    build:
+      context: ../Domains/runbook/runbook_spa
+    image: runbook_spa:latest
+    ports:
+      - "9091:80"
+    profiles:
+      - runbook
+
+  mongodb_api:
+    build:
+      context: ../Domains/schema/mongodb_api
+    image: mongodb_api:latest
+    ports:
+      - "9092:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/grow_db
+    depends_on:
+      - mongo
+    profiles:
+      - schema
+      - schema-api
+
+  configurator_spa:
+    build:
+      context: ../Domains/schema/configurator_spa
+    image: configurator_spa:latest
+    ports:
+      - "9093:80"
+    profiles:
+      - schema
+
+  api_utils:
+    build:
+      context: ../Domains/common_code/api_utils
+    image: api_utils:latest
+    ports:
+      - "9094:8080"
+    profiles:
+      - common_code
+      - common_code-api
+
+  spa_utils:
+    build:
+      context: ../Domains/common_code/spa_utils
+    image: spa_utils:latest
+    ports:
+      - "9095:80"
+    profiles:
+      - common_code
+
+  profile_api:
+    build:
+      context: ../Domains/profile/profile_api
+    image: profile_api:latest
+    ports:
+      - "8389:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/grow_db
+    depends_on:
+      - mongo
+    profiles:
+      - profile
+      - profile-api
+
+  profile_spa:
+    build:
+      context: ../Domains/profile/profile_spa
+    image: profile_spa:latest
+    ports:
+      - "8390:80"
+    profiles:
+      - profile
+
+  mentor_api:
+    build:
+      context: ../Domains/mentor/mentor_api
+    image: mentor_api:latest
+    ports:
+      - "8391:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/grow_db
+    depends_on:
+      - mongo
+    profiles:
+      - mentor
+      - mentor-api
+
+  mentor_spa:
+    build:
+      context: ../Domains/mentor/mentor_spa
+    image: mentor_spa:latest
+    ports:
+      - "8392:80"
+    profiles:
+      - mentor
+
+  member_api:
+    build:
+      context: ../Domains/member/member_api
+    image: member_api:latest
+    ports:
+      - "8393:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/grow_db
+    depends_on:
+      - mongo
+    profiles:
+      - member
+      - member-api
+
+  member_spa:
+    build:
+      context: ../Domains/member/member_spa
+    image: member_spa:latest
+    ports:
+      - "8394:80"
+    profiles:
+      - member
+
+volumes:
+  mongo_data:

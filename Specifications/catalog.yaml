@@ -1,15 +1,27 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/catalog.schema.yaml"
-$id: "https://github.com/justin-mike-collab/grow/blob/main/Specifications/catalog.yaml"
-title: Data Dictionary Catalog Specification for grow
+$id: "https://github.com/agile-learning-institute/mentorhub/blob/main/Specifications/catalog.yaml"
+title: Data Dictionary Catalog Specification for Mentor Hub
 
 data_dictionaries:
   - name: Identity
     description: The IdP Identity of a person who is a user of the system. 
   - name: Profile
     description: User Preferences associated with one **Identity**.
-  - name: Control
-    description: A sample Control (CRUD) collection
-  - name: Create
-    description: A sample Create (Write Once, Read Many) collection
-  - name: Consume
-    description: A sample Consume (Read Only) collection
+  - name: Organization  
+    description: An organization that a member belongs to.
+  - name: Event
+    description: A meaningful event for a user.
+  - name: Resource
+    description: A learning resource (link)
+  - name: Path
+    description: A learning path through resources
+  - name: Plan
+    description: A learning plan for a encounter.
+  - name: Encounter
+    description: A learning encounter between a mentor and a member.
+  - name: Curriculum
+    description: A learning curriculum for a encounter.
+  - name: Rating
+    description: A rating of a resource.
+  - name: Review
+    description: A review of a resource.

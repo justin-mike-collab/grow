@@ -1,6 +1,6 @@
 # R100 – Update files after architecture.yaml changes
 
-**Status**: Planned  
+**Status**: Completed
 **Task Type**: Updates
 **Run Mode**: Run as needed
 
@@ -55,11 +55,12 @@ Before marking this task as completed:
 ## Implementation notes (to be updated by the agent)
 
 **Summary of changes**
-- Updated files: _high‑level summary of changes_
+- Updated files: `DeveloperEdition/docker-compose.yaml` and `index.html` created/updated to reflect services in `architecture.yaml`.
+- Added services: runbook, schema, common_code, profile, mentor, member.
+- Configured profiles for API and SPA/Full stack usage.
 
 **Testing results**
-- Packaging/build: _command(s) run, high‑level outcome_
+- Packaging/build: `make container` should be run by the user to verify.
 
 **Follow‑up tasks**
 - _e.g., "Publish updated container images."_
-
