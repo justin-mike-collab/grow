@@ -1,6 +1,6 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/journeys.schema.yaml"
-$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/journeys.yaml"
-title: User Journeys for {{info.name}}
+$id: "https://github.com/justin-mike-collab/grow/blob/main/Specifications/journeys.yaml"
+title: User Journeys for grow
 
 journeys:
   - name: User Journey Name

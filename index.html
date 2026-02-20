@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{info.name}} - Welcome</title>
+    <title>grow - Welcome</title>
     <style>
         * {
             margin: 0;
@@ -113,7 +113,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>{{info.name}}</h1>
+        <h1>grow</h1>
         <p class="subtitle">Welcome to the Development Environment</p>
         <ul class="links">
             <li>
@@ -122,18 +122,18 @@
                 </a>
             </li>
             <li>
-                <a href="http://HOST_NAME:{{info.base_port + 3}}" id="database-link" target="_blank">
+                <a href="http://HOST_NAME:9093" id="database-link" target="_blank">
                     Schema Configuration
                 </a>
-                <a href="http://HOST_NAME:{{info.base_port + 2}}/docs/index.html" id="database-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
+                <a href="http://HOST_NAME:9092/docs/index.html" id="database-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
                     🔍 API Explorer
                 </a>
             </li>
             <li>
-                <a href="http://HOST_NAME:{{info.base_port + 1}}/" id="runbook-link" target="_blank">
+                <a href="http://HOST_NAME:9091/" id="runbook-link" target="_blank">
                     Runbook Automation
                 </a>
-                <a href="http://HOST_NAME:{{info.base_port + 0}}/docs/explorer.html" id="runbook-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
+                <a href="http://HOST_NAME:9090/docs/explorer.html" id="runbook-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
                     🔍 API Explorer
                 </a>
             </li>
@@ -142,10 +142,10 @@
     <script>
         // Replace HOST_NAME with actual hostname or use window.location.hostname
         const hostname = window.location.hostname || 'localhost';
-        document.getElementById('database-link').href = `http://${hostname}:{{info.base_port + 3}}`;
-        document.getElementById('database-explorer-link').href = `http://${hostname}:{{info.base_port + 2}}/docs/index.html`;
-        document.getElementById('runbook-link').href = `http://${hostname}:{{info.base_port + 1}}/`;
-        document.getElementById('runbook-explorer-link').href = `http://${hostname}:{{info.base_port + 0}}/docs/explorer.html`;
+        document.getElementById('database-link').href = `http://${hostname}:9093`;
+        document.getElementById('database-explorer-link').href = `http://${hostname}:9092/docs/index.html`;
+        document.getElementById('runbook-link').href = `http://${hostname}:9091/`;
+        document.getElementById('runbook-explorer-link').href = `http://${hostname}:9090/docs/explorer.html`;
     </script>
 </body>
 </html>

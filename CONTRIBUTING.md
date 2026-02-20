@@ -1,6 +1,6 @@
-# {{info.name}} Developer Edition
+# grow Developer Edition
 
-The {{info.name}} Developer Edition ``{{info.developer_cli}}`` is a Command Line Interface that provides key components of the developer experience. This CLI wraps docker compose commands, and secret management for local development environments. All developers should install this tooling, create and configure tokens, and review the linked standards before contributing to any repo.
+The grow Developer Edition ``gr`` is a Command Line Interface that provides key components of the developer experience. This CLI wraps docker compose commands, and secret management for local development environments. All developers should install this tooling, create and configure tokens, and review the linked standards before contributing to any repo.
 
 ## Prerequisites
 - **Docker Desktop** - https://www.docker.com/get-started/
@@ -15,19 +15,19 @@ The {{info.name}} Developer Edition ``{{info.developer_cli}}`` is a Command Line
 ## Quick Start
 Use these commands to install the Developer Edition ``de`` command line utility. 
 ```sh
-git clone git@{{org.git_host}}:{{org.git_org}}/{{info.slug}}.git
-cd {{info.slug}}
+git clone git@https://github.com:justin-mike-collab/grow.git
+cd grow
 make install
-cp <YOUR_TOKEN> ~/.{{info.slug}}/GITHUB_TOKEN
+cp <YOUR_TOKEN> ~/.grow/GITHUB_TOKEN
 make update
 
 ```
 
 ## Configure access tokens
-When local environment values are required (GitHub access tokens, etc.) they are stored in the hidden folder ``~/.{{info.slug}}`` instead of a being replicated across multiple repo level .env files. 
+When local environment values are required (GitHub access tokens, etc.) they are stored in the hidden folder ``~/.grow`` instead of a being replicated across multiple repo level .env files. 
 
 ## GITHUB_TOKEN
-We are using GitHub to publish the api_utils pypi package, the spa_utils npm package, and GitHub Container Registry to publish containers. You should create a GitHub classic access token with `repo` `workflow`, and `write:packages` privileges. This token should be saved in ``~/.{{info.slug}}/GITHUB_TOKEN``. 
+We are using GitHub to publish the api_utils pypi package, the spa_utils npm package, and GitHub Container Registry to publish containers. You should create a GitHub classic access token with `repo` `workflow`, and `write:packages` privileges. This token should be saved in ``~/.grow/GITHUB_TOKEN``. 
 
 To create a token, login to GitHub and click your Profile Pic -> Settings -> Developer Settings -> Personal access tokens -> Tokens(classic) -> Create New -> ✅ repo, ✅ workflow, ✅ write:packages. For reference: [ghcr and github tokens](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
   

@@ -1,6 +1,6 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/stakeholders.schema.yaml"
-$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/stakeholders.yaml"
-title: Stakeholders for {{info.name}}
+$id: "https://github.com/justin-mike-collab/grow/blob/main/Specifications/stakeholders.yaml"
+title: Stakeholders for grow
 
 stakeholders:
   - name: 

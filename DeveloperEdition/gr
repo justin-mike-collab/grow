@@ -3,10 +3,10 @@
 export COMMAND="$1"
 export NEW_PROFILE="$2"
 export INSTALL_PATH=$(dirname "$0")
-export GITHUB_TOKEN=$(cat ~/.mentorhub/GITHUB_TOKEN)
+export GITHUB_TOKEN=$(cat ~/.grow/GITHUB_TOKEN)
 export JWT_SECRET=$(date +%s)
 export SSH_KEY=$(cat ~/.ssh/id_ed25519)
-export MOUNT_DIR=~/.mentorhub/
+export MOUNT_DIR=~/.grow/
 
 ################################################################################
 # Print Manual Page
@@ -14,13 +14,13 @@ export MOUNT_DIR=~/.mentorhub/
 function manual {
 cat <<END
 NAME
-       mh - Mentor Hub Developers Edition
+       gr - grow Developers Edition
 
 SYNOPSIS
-       mh COMMAND
+       gr COMMAND
 
 DESCRIPTION
-       mh is a simple utility to run the Mentor Hub system, or portions 
+       gr is a simple utility to run the grow system, or portions 
        of it, in local docker containers. You must have docker desktop 
        installed
 
@@ -49,16 +49,16 @@ COMMANDS
         Pull latest images for the specified profile(s).
 
     clean
-        Delete all Mentor Hub specific containers, volumes, and images
+        Delete all grow specific containers, volumes, and images
 
     version
-        print the Mentor Hub Developers Edition version
+        print the grow Developers Edition version
     
     list-profiles
-        List all available profiles related to Mentor Hub Developers Edition
+        List all available profiles related to grow Developers Edition
 
     list-services
-        List all available services related to Mentor Hub Developers Edition
+        List all available services related to grow Developers Edition
 
 END
 }
@@ -69,7 +69,7 @@ END
 usage() {
   cat <<END
 
-Usage: mhCOMMAND
+Usage: grCOMMAND
 
 Commands:
   up             Launch containers from a profile
@@ -79,8 +79,8 @@ Commands:
   tail           Tail a service log
   prune          Prune all orphaned images and volumes
   pull           Pull latest images for a profile
-  clean          Delete all Mentor Hub specific containers, volumes, and images
-  version        Print the Mentor Hub Developers Edition version
+  clean          Delete all grow specific containers, volumes, and images
+  version        Print the grow Developers Edition version
   list-profiles  List all available profiles
   list-services  List all available services
   manual         Show the manual
@@ -163,7 +163,7 @@ function downCurrent {
 ################################################################################
 function upProfile {
     if [[ -z $NEW_PROFILE ]]; then
-        echo "Error: No profile specified. Use 'mh up [profile1,profile2,...]'"
+        echo "Error: No profile specified. Use 'gr up [profile1,profile2,...]'"
         listProfiles
         return 1
     fi
@@ -217,7 +217,7 @@ function startCurrent {
         done
         docker compose "${docker_compose_args[@]}" start 
     else
-        echo "No profiles found to start. Use 'mh up [profile]' first."
+        echo "No profiles found to start. Use 'gr up [profile]' first."
     fi
 }
 
@@ -245,7 +245,7 @@ function tailServiceLogs {
 ################################################################################
 function pull {
     if [[ -z $NEW_PROFILE ]]; then
-        echo "Error: No profile specified. Use 'mh pull [profile1,profile2,...]'"
+        echo "Error: No profile specified. Use 'gr pull [profile1,profile2,...]'"
         listProfiles
         return 1
     fi
@@ -314,7 +314,7 @@ function clean {
 
 ##########################################################################
 # Main 
-echo "$(date) mh start $COMMAND $NEW_PROFILE"
+echo "$(date) gr start $COMMAND $NEW_PROFILE"
 checkAndStartDocker
 
 case $COMMAND in

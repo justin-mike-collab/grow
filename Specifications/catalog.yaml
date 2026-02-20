@@ -1,6 +1,6 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/catalog.schema.yaml"
-$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/catalog.yaml"
-title: Data Dictionary Catalog Specification for {{info.name}}
+$id: "https://github.com/justin-mike-collab/grow/blob/main/Specifications/catalog.yaml"
+title: Data Dictionary Catalog Specification for grow
 
 data_dictionaries:
   - name: Identity

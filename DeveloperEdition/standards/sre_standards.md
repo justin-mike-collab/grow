@@ -14,13 +14,13 @@
 - Runbook Automation: [stage0 runbooks](https://github.com/agile-learning-institute/stage0_runbooks)
 
 ## Developer Experience
-The ``{{info.developer_cli}}`` Developer Edition script is how the SRE's provide a strong developer experience. 
+The ``gr`` Developer Edition script is how the SRE's provide a strong developer experience. 
 This script manages developer environment values (keys, secrets, etc.) and wraps the services configured in this [docker-compose](../docker-compose.yaml) file. Developers are always able to run services in isolation on local hardware, and the ``de`` command makes it easy.
 
 **Authentication Security**: The `de` script automatically generates a timestamp-based `JWT_SECRET` on each execution, ensuring authentication tokens are invalidated after server restarts. This security pattern is implemented for runbook services and will be extended to other services as they are refactored. 
 
 ## SRE Automation 
-SRE Automation is done using the [stage0 runbooks](https://github.com/agile-learning-institute/stage0_runbooks) system. Our custom runbook is [runbook_api]({{org.git_host}}/{{org.git_org}}/{{info.slug}}_runbook_api) which is available for use with ``de up runbook`` and accessing http://localhost and following the runbooks link. 
+SRE Automation is done using the [stage0 runbooks](https://github.com/agile-learning-institute/stage0_runbooks) system. Our custom runbook is [runbook_api](https://github.com/justin-mike-collab/grow_runbook_api) which is available for use with ``de up runbook`` and accessing http://localhost and following the runbooks link. 
 
 ## Continuous Integration
 The developer workflow follows the feature branch pattern. A developer creates a branch to work on a feature, and submit a pull request (PR) when the feature is ready to be deployed. When a PR is approved by a reviewer and merged to the main branch, the CI automation will build and push a new container with a :latest tag to the system's container registry. These containers are deployed to a cloud DEV environment, and available for developers to use for local development.
@@ -58,7 +58,7 @@ Protected routes in the SPA redirect unauthenticated users to `/auth/login`, whi
 This pattern ensures consistent authentication flow across all deployment environments while maintaining security boundaries. 
 
 ## Service Configurability
-All API's are configured using a shared [Config singleton]({{org.git_host}}/{{org.git_org}}/api_utils/blob/main/py_utils/config/config.py). The Config object manages all configuration items for all API and SPA code. Configuration values are read from the first of: Config File, Environment Var, Default Value. The configuration items and non-secret values are exposed through the Config API endpoint, which is used by the SPA to get runtime configuration values.
+All API's are configured using a shared [Config singleton](https://github.com/justin-mike-collab/api_utils/blob/main/py_utils/config/config.py). The Config object manages all configuration items for all API and SPA code. Configuration values are read from the first of: Config File, Environment Var, Default Value. The configuration items and non-secret values are exposed through the Config API endpoint, which is used by the SPA to get runtime configuration values.
 
 ## Service Observability
 All API's expose a /metrics endpoint which exposes a text-based exposition format that Prometheus understands. This endpoint exposes detailed, real-time metrics about the API's performance, latency, error rates, and internal health.

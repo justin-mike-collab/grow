@@ -1,21 +1,21 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/product.schema.yaml"
-$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/product.yaml"
-title: Product and Organization Specifications for {{info.name}}
+$id: "https://github.com/justin-mike-collab/grow/blob/main/Specifications/product.yaml"
+title: Product and Organization Specifications for grow
 
 info:
-  name: {{info.name}}
-  description: {{info.description}}
-  slug: {{info.slug}}
-  developer_cli: {{info.developer_cli}}
-  db_name: {{info.db_name}}
-  base_port: {{info.base_port}}
+  name: grow
+  description: AI-reviewed Performance Reviews
+  slug: grow
+  developer_cli: gr
+  db_name: grow_db
+  base_port: 9090
 
 organization:
-  name: {{org.name}}
-  email: {{org.email}}
-  founded: {{org.founded}}
-  slug: {{org.slug}}
-  git_host: {{org.git_host}}
-  git_org: {{org.git_org}}
-  docker_host: {{org.docker_host}}
-  docker_org: {{org.docker_org}}
+  name: Justin-Mike-Collab
+  email: jbarker2160@gmail.com
+  founded: 1234
+  slug: grow
+  git_host: https://github.com
+  git_org: justin-mike-collab
+  docker_host: ghcr.io
+  docker_org: justin-mike-collab
